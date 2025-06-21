@@ -12,9 +12,10 @@ export default class LibrosController {
     const titulo = request.input('titulo')
     const autor = request.input('autor')
     const genero = request.input('genero')
-    const activo = request.input('activo', true)
+    const activoInput = request.input('activo')
+    const activo = activoInput === 'true' || activoInput === true ? 1 : 0
 
-    const query = Libro.query().where('activo',activo)
+    const query = Libro.query().where('activo', activo).preload('genero')
   
 
     if (titulo) {
@@ -24,7 +25,7 @@ export default class LibrosController {
       query.whereILike('autor', `%${autor}%`)
     }
     if (genero) {
-      query.whereILike('genero', `%${genero}%`)
+      query.where('generoId', genero)
     }
 
     const libros = await query.paginate(page, limit)
@@ -35,7 +36,7 @@ export default class LibrosController {
    * Almacena un nuevo libro en la base de datos.
    */
   async store({ request }: HttpContext) {
-    const data = request.only(['titulo', 'autor', 'anioPublicacion', 'genero'])
+    const data = request.only(['titulo', 'autor', 'anioPublicacion', 'generoId'])
     const libro = await Libro.create(data)
     return libro
   }
@@ -59,7 +60,7 @@ export default class LibrosController {
     if (!libro || libro.deletedAt || !libro.activo) {
       return response.notFound({ message: 'Libro no encontrado o inactivo' })
     }
-    const data = request.only(['titulo', 'autor', 'anioPublicacion', 'genero'])
+    const data = request.only(['titulo', 'autor', 'anioPublicacion', 'generoId'])
     libro.merge(data)
     await libro.save()
     return libro
