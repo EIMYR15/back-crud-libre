@@ -16,9 +16,13 @@ router.get('/', async () => {
   }
 })
 
-// Rutas CRUD para libros
-router.get('/libros', [LibrosController, 'index'])
-router.post('/libros', [LibrosController, 'store'])
-router.get('/libros/:id', [LibrosController, 'show'])
-router.put('/libros/:id', [LibrosController, 'update'])
-router.delete('/libros/:id', [LibrosController, 'destroy'])
+// Agrupar rutas CRUD para libros bajo el prefijo /api
+router
+  .group(() => {
+    router.get('/libros', [LibrosController, 'index'])
+    router.post('/libros', [LibrosController, 'store'])
+    router.get('/libros/:id', [LibrosController, 'show'])
+    router.put('/libros/:id', [LibrosController, 'update'])
+    router.delete('/libros/:id', [LibrosController, 'destroy'])
+  })
+  .prefix('/api')

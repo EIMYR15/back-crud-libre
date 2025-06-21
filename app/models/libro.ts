@@ -20,6 +20,9 @@ export default class Libro extends BaseModel {
   @column({ columnName: 'activo' })
   declare activo: boolean
 
+  @column.dateTime({ columnName: 'deleted_at' })
+  declare deletedAt: DateTime | null
+
   @column.dateTime({ autoCreate: true, columnName: 'created_at' })
   declare createdAt: DateTime
 

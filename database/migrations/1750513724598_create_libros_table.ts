@@ -11,6 +11,7 @@ export default class extends BaseSchema {
       table.integer('anio_publicacion').notNullable()
       table.string('genero').notNullable()
       table.boolean('activo').defaultTo(true)
+      table.timestamp('deleted_at', { useTz: true }).nullable() // Soft delete
       table.timestamp('created_at', { useTz: true }).notNullable()
       table.timestamp('updated_at', { useTz: true }).notNullable()
     })
