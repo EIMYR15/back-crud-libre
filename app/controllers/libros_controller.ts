@@ -12,8 +12,10 @@ export default class LibrosController {
     const titulo = request.input('titulo')
     const autor = request.input('autor')
     const genero = request.input('genero')
+    const activo = request.input('activo', true)
 
-    const query = Libro.query().whereNull('deletedAt').andWhere('activo', true)
+    const query = Libro.query().where('activo',activo)
+  
 
     if (titulo) {
       query.whereILike('titulo', `%${titulo}%`)

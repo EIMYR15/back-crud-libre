@@ -24,7 +24,7 @@ export default class Libro extends BaseModel {
   })
   declare genero: BelongsTo<typeof Genero>
 
-  @column({ columnName: 'activo' })
+  @column()
   declare activo: boolean
 
   @column.dateTime({ columnName: 'deleted_at' })
