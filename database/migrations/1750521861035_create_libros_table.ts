@@ -9,7 +9,13 @@ export default class extends BaseSchema {
       table.string('titulo').notNullable()
       table.string('autor').notNullable()
       table.integer('anio_publicacion').notNullable()
-      table.string('genero').notNullable()
+      table
+        .integer('genero_id')
+        .unsigned()
+        .references('id')
+        .inTable('generos')
+        .onDelete('CASCADE')
+        .notNullable()
       table.boolean('activo').defaultTo(true)
       table.timestamp('deleted_at', { useTz: true }).nullable() // Soft delete
       table.timestamp('created_at', { useTz: true }).notNullable()
