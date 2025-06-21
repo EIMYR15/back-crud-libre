@@ -1,5 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
+import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
+import type { BelongsTo } from '@adonisjs/lucid/types/relations'
+import Genero from '#models/genero'
 
 export default class Libro extends BaseModel {
   @column({ isPrimary: true, columnName: 'id' })
@@ -14,8 +16,13 @@ export default class Libro extends BaseModel {
   @column({ columnName: 'anio_publicacion' })
   declare anioPublicacion: number
 
-  @column({ columnName: 'genero' })
-  declare genero: string
+  @column()
+  declare generoId: number
+
+  @belongsTo(() => Genero, {
+    foreignKey: 'generoId',
+  })
+  declare genero: BelongsTo<typeof Genero>
 
   @column()
   declare activo: boolean
