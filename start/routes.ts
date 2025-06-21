@@ -24,5 +24,8 @@ router
     router.get('/libros/:id', [LibrosController, 'show'])
     router.put('/libros/:id', [LibrosController, 'update'])
     router.delete('/libros/:id', [LibrosController, 'destroy'])
+    // Rutas adicionales para restaurar e eliminar definitivamente
+    router.post('/libros/:id/restore', [LibrosController, 'restore'])
+    router.delete('/libros/:id/force', [LibrosController, 'forceDelete'])
   })
   .prefix('/api')

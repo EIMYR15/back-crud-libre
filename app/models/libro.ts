@@ -17,7 +17,7 @@ export default class Libro extends BaseModel {
   @column({ columnName: 'genero' })
   declare genero: string
 
-  @column({ columnName: 'activo' })
+  @column()
   declare activo: boolean
 
   @column.dateTime({ columnName: 'deleted_at' })
